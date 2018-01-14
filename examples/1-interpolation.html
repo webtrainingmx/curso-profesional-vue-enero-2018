@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Curso Profesional Vue.js</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .uppercase {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Interpolación</h1>
+
+                    <h2>Texto</h2>
+                    <div class="alert alert-info">
+                        <p>
+                            <strong>Hola</strong> {{ name }},
+                        </p>
+                        <p>
+                            <strong>Hoy es:</strong> {{ today }}, y tienes <em>{{ tasks.length }}</em> pendientes
+                        </p>
+                    </div>
+
+                    <h2>HTML</h2>
+                    <div class="alert alert-warning">
+                        <p>
+                            <!-- // XSS Danger!!! -->
+                            <span v-html="html"></span>
+                        </p>
+                    </div>
+
+                    <h2>Atributos</h2>
+                    <div class="alert alert-success">
+                        <p>
+                            <span v-bind:class="dynamicClass" v-html="html">
+                            </span>
+                        </p>
+                    </div>
+
+                    <h2>Expresiones JavaScript</h2>
+                    <div class="alert alert-danger">
+                        <p>
+                            <button v-if="showButton" class="btn btn-danger">
+                                Tengo 1 recordatorio + {{ tasks.length }} tareas =
+                                {{1 + tasks.length}} pendientes
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<script src="https://unpkg.com/vue"></script>-->
+    <script src="../js/vue.js"></script>
+    <script>
+      (function() {
+
+        var appTodos = new Vue({
+          el: '#app',
+          data: {
+            name: 'Esmeralda',
+            today: new Date(),
+            html: '<strong>Recordatorio: </strong> comprar pastel de chocolate',
+            tasks: [
+              'Enviar email a proveedores',
+              'Hablar por teléfono con mamá',
+              'Reservar restaurante para la cena'
+            ],
+            dynamicClass: 'uppercase',
+            showButton: true
+          }
+        });
+
+        window.appTodos = appTodos;
+
+      })();
+    </script>
+</body>
+</html>
