@@ -12,33 +12,31 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Directivas</h1>
+                    <h1>Computed Properties</h1>
 
-                    <h2>v-for</h2>
                     <div class="alert alert-info">
+
+                        <h2>Regular Array:</h2>
                         <ul class="b-tasks">
                             <li class="b-task" v-for="task in tasks">
                                 {{ task }}
                             </li>
                         </ul>
+
+                        <h2>Sorted Array</h2>
+                        <ul class="b-tasks">
+                            <li class="b-task" v-for="task in sortedTasks">
+                                {{ task }}
+                            </li>
+                        </ul>
+
                     </div>
 
-                    <h2>v-if, v-show, v-on</h2>
-                    <img src="http://lorempixel.com/400/200/people/" v-if="isImageVisible">
-                    <img src="http://lorempixel.com/400/200/people/" v-show="isImageVisible">
-                    <p>
-                        <button v-on:click="toggleImage()" class="btn btn-primary">Toggle image</button>
-
-                        <button @click="toggleImage()" class="btn btn-primary">Toggle image (shorthand)</button>
-
-                        <a :href="url">v-bind shorthand</a>
-                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--<script src="https://unpkg.com/vue"></script>-->
     <script src="../js/vue.js"></script>
     <script>
       (function() {
@@ -49,14 +47,13 @@
             tasks: [
               'Enviar email a proveedores',
               'Hablar por teléfono con mamá',
-              'Reservar restaurante para la cena'
-            ],
-            url: 'https://webtraining.zone',
-            isImageVisible: false
+              'Reservar restaurante para la cena',
+              'Buscar libro sobre IA'
+            ]
           },
-          methods: {
-            toggleImage: function() {
-              this.isImageVisible = !this.isImageVisible;
+          computed: {
+            sortedTasks: function() {
+              return this.tasks.sort();
             }
           }
         });
