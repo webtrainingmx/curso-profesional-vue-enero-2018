@@ -12,7 +12,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Brand</a>
+        <a class="navbar-brand" href="#">
+          <i class="fa fa-globe" aria-hidden="true"></i>
+          <span class="b-brand-name">Country-Vue</span>
+        </a>
       </div>
 
       <div class="collapse navbar-collapse" id="navbar-collapse-main">
@@ -35,5 +38,17 @@ export default {
 <style>
 .navbar {
   border-radius: 0;
+}
+
+.b-brand-name {
+
+}
+
+.fa {
+  font-size: 40px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  margin-top: -10px;
 }
 </style>
