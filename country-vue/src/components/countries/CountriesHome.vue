@@ -4,15 +4,18 @@
     <div class="b-filter-container">
       <div class="form-group">
         <label for="countryName">Filter by country name:</label>
-        <input type="text" v-model="countryName" class="form-control" id="countryName" placeholder="Type a country name">
+        <input type="text" v-model="countryName" class="form-control"
+               id="countryName" placeholder="Type a country name">
       </div>
 
     </div>
-    <div class="b-countries-wrapper" v-if="countries">
-      <app-countries-cards :countries="filteredCountries"
-                           v-if="filteredCountries"></app-countries-cards>
-      <app-countries-cards :countries="countries"
-                           v-else></app-countries-cards>
+    <div class="b-loader" v-loading="isLoading">
+      <div class="b-countries-wrapper" v-if="countries">
+        <app-countries-cards :countries="filteredCountries"
+                             v-if="filteredCountries"></app-countries-cards>
+        <app-countries-cards :countries="countries"
+                             v-else></app-countries-cards>
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +30,7 @@ export default {
   },
   data () {
     return {
+      isLoading: true,
       countryName: '',
       countries: null
     }
@@ -39,6 +43,7 @@ export default {
       axios.get(serviceURL).then((response) => {
         this.countries = response.data
         console.log('Countries loaded!')
+        this.isLoading = false
       }, (error) => {
         console.log(error)
       })
@@ -60,6 +65,9 @@ export default {
 }
 </script>
 <style>
+.b-loader {
+  min-height: 150px;
+}
 .b-title {
   text-align: center;
   margin: 60px 0 50px 0;
