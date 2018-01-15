@@ -12,40 +12,22 @@
               :disabled="countryName.length < 2">Search
       </button>
     </form>
-
-    <div class="b-countries" v-if="countries">
-      <el-row :gutter="20">
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6"
-                v-for="(country) in countries" :key="country.cca2">
-          <el-card>
-            <div class="b-country">
-              <div class="b-country__flag" v-html="country.flag.sprite"></div>
-              <!--<div class="b-country__flag" v-html="country.flag.svg"></div>-->
-              <div style="padding: 0px;">
-                <span>{{ country.name.common }}</span>
-                <div class="bottom clearfix">
-
-                  <el-button type="text" class="button">See details</el-button>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </div>
-
+    <app-countries-cards :countries="countries"></app-countries-cards>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import CountriesCards from './CountriesCards'
 
 export default {
   name: 'app-countries-finder',
+  components: {
+    'app-countries-cards': CountriesCards
+  },
   data () {
     return {
       countryName: '',
-      countries: null,
-      currentDate: new Date()
+      countries: null
     }
   },
   methods: {
@@ -69,7 +51,7 @@ export default {
 <style>
 .b-title {
   text-align: center;
-  margin: 60px 0 80px 0;
+  margin: 60px 0 50px 0;
 }
 
 .b-countries-finder__form {
