@@ -27,9 +27,9 @@
                     <img src="http://lorempixel.com/400/200/people/" v-if="isImageVisible">
                     <img src="http://lorempixel.com/400/200/people/" v-show="isImageVisible">
                     <p>
-                        <button v-on:click="toggleImage()" class="btn btn-primary">Toggle image</button>
+                        <button v-on:click="toggleImage" class="btn btn-primary">Toggle image</button>
 
-                        <button @click="toggleImage()" class="btn btn-primary">Toggle image (shorthand)</button>
+                        <button @click="toggleImage" class="btn btn-primary">Toggle image (shorthand)</button>
 
                         <a :href="url">v-bind shorthand</a>
                     </p>

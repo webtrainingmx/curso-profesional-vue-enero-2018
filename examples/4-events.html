@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Curso Profesional Vue.js</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .b-task {
+            cursor: pointer;
+        }
+
+        .b-task.is-completed {
+            color: gray;
+        }
+
+        .is-completed .glyphicon {
+            color: green;
+        }
+
+        .is-uncompleted .glyphicon {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Manejo de Eventos</h1>
+
+                    <div class="b-tasks-container">
+
+                        <h2>Mis tareas</h2>
+
+                        <ul class="b-tasks">
+                            <li class="b-task" v-for="task in tasks" @click="completeTask(task)"
+                                :class="{'is-completed' : task.completed, 'is-uncompleted': ! task.completed}">
+                                <span>{{ task.title }}</span>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+      (function() {
+
+        new Vue({
+          el: '#app',
+          data: {
+            newTask: '',
+            tasks: [
+              {
+                title: 'Enviar email a proveedores',
+                completed: false
+              },
+              {
+                title: 'Hablar por teléfono con mamá',
+                completed: true
+              },
+              {
+                title: 'Reservar restaurante para la cena',
+                completed: false
+              },
+              {
+                title: 'Buscar libro sobre IA',
+                completed: false
+              }
+            ]
+          },
+          methods: {
+            completeTask: function(task) {
+              task.completed = true;
+            }
+          },
+          computed: {
+            sortedTasks: function() {
+              return this.tasks.sort();
+            }
+          }
+        });
+
+      })();
+    </script>
+</body>
+</html>
