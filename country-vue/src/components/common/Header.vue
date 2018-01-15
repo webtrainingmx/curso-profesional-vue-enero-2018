@@ -12,16 +12,18 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">
+        <router-link to="/" class="navbar-brand">
           <i class="fa fa-globe" aria-hidden="true"></i>
           <span class="b-brand-name">Country-Vue</span>
-        </a>
+        </router-link>
       </div>
 
       <div class="collapse navbar-collapse" id="navbar-collapse-main">
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Countries</a></li>
+          <li>
+            <router-link to="/countries">Countries</router-link>
+          </li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
