@@ -1,7 +1,19 @@
 <template>
   <div class="b-countries-finder">
     <h1 class="b-title">Country List</h1>
-    <app-countries-cards :countries="countries"></app-countries-cards>
+    <div class="b-filter-container">
+      <div class="form-group">
+        <label for="countryName">Filter by country name:</label>
+        <input type="text" v-model="countryName" class="form-control" id="countryName" placeholder="Type a country name">
+      </div>
+
+    </div>
+    <div class="b-countries-wrapper" v-if="countries">
+      <app-countries-cards :countries="filteredCountries"
+                           v-if="filteredCountries"></app-countries-cards>
+      <app-countries-cards :countries="countries"
+                           v-else></app-countries-cards>
+    </div>
   </div>
 </template>
 <script>
@@ -15,6 +27,7 @@ export default {
   },
   data () {
     return {
+      countryName: '',
       countries: null
     }
   },
@@ -29,6 +42,15 @@ export default {
       }, (error) => {
         console.log(error)
       })
+    }
+  },
+  computed: {
+    filteredCountries: {
+      get () {
+        let filter = new RegExp(this.countryName, 'i')
+        return this.countries.filter(
+          country => country.name.common.match(filter))
+      }
     }
   },
   mounted () {
