@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
+        .b-tasks {
+            margin: 0;
+            padding-left: 15px;
+        }
+
         .b-task {
             cursor: pointer;
         }
@@ -23,9 +28,14 @@
             color: orange;
         }
 
+        .b-task__date {
+            font-size: 10px;
+            color: gray;
+        }
+
         .b-task__category {
             font-size: 10px;
-            text-transform: uppercase;
+            /*text-transform: uppercase;*/
             color: gray;
             background: #fefefe;
             border: 1px solid gray;
@@ -41,7 +51,8 @@
                     <h1>Componentes</h1>
                     <div class="b-tasks-container">
                         <h2>Mis tareas</h2>
-                        <task-component :tasks-in-child-component="tasks"></task-component>
+                        <task-component :tasks-in-child-component="tasks"
+                                        @emit-create-method="parentHandler"></task-component>
                     </div>
                 </div>
             </div>
@@ -49,23 +60,50 @@
     </div>
 
     <script src="../js/vue.js"></script>
+    <script type="text/x-template" id="task-component-template">
+        <ul class="b-tasks">
+            <li class="b-task" v-for="task in tasksInChildComponent"
+                :class="{'is-completed' : task.completed, 'is-uncompleted': ! task.completed}"
+                @click="childHandler(task)">
+                <p>
+                    {{ task.title }}
+                    <span class="b-task__category" v-if="task.category">
+                        {{ task.category.name | uppercase }}
+                    </span>
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-cloud" v-if="task.synchronize === 'Yes'"></span>
+                </p>
+                <p class="b-task__date">
+                    {{ task.createdOn | friendlyDate }}
+                </p>
+            </li>
+        </ul>
+    </script>
     <script>
       (function() {
+        // Filtro globalmente registrado
+        Vue.filter('friendlyDate', function(value) {
+          if (!value) return '';
+          if (value instanceof Date) return value.toDateString();
+          return value;
+        });
 
-        // Component globalmente registrado
+        // Componente globalmente registrado
         Vue.component('task-component', {
           props: ['tasksInChildComponent'],
-          template: `
+          template: '#task-component-template',
+          methods: {
+            childHandler: function(task) {
+              this.$emit('emit-create-method', task);
+            }
+          },
+          filters: {
+            uppercase: function(value) {
+              if (!value) return '';
+              return value.toString().toUpperCase();
+            }
+          }
 
-<ul class="b-tasks">
-        <li class="b-task" v-for="task in tasksInChildComponent" @click="completeTask(task)"
-                                            :class="{'is-completed' : task.completed, 'is-uncompleted': ! task.completed}">
-                    <p>
-                        {{ task.title }} <span class="b-task__category" v-if="task.category">{{ task.category.name }}</span>
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <span class="glyphicon glyphicon-cloud" v-if="task.synchronize === 'Yes'"></span>
-                    </p></li>
-</ul>`
         });
 
         new Vue({
@@ -79,28 +117,32 @@
                   synchronize: 'Yes',
                   category: {
                     name: 'Trabajo'
-                  }
+                  },
+                  createdOn: new Date()
                 },
                 {
                   title: 'Hablar por teléfono con mamá',
                   completed: true,
-                  synchronize: 'No'
+                  synchronize: 'No',
+                  createdOn: new Date(2018, 1, 13)
                 },
                 {
                   title: 'Reservar restaurante para la cena',
                   completed: false,
-                  synchronize: 'No'
+                  synchronize: 'No',
+                  createdOn: new Date(2018, 1, 5)
                 },
                 {
                   title: 'Buscar libro sobre IA',
                   completed: false,
-                  synchronize: 'No'
+                  synchronize: 'No',
+                  createdOn: new Date(2018, 1, 2)
                 }
               ]
             };
           },
           methods: {
-            completeTask: function(task) {
+            parentHandler: function(task) {
               task.completed = true;
             }
           }
