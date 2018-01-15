@@ -13,10 +13,14 @@
       </button>
     </form>
 
-    <div class="b-country" v-for="(country, key) in countries">
-      {{ country }}
+    <div class="b-countries" v-if="countries">
+      <div class="b-country" v-for="(country) in countries" :key="country.cca2">
+        {{ country.name.common }}
+        <!--<div class="b-country__flag" v-html="country.flag.sprite"></div>-->
+        <div class="b-country__flag" v-html="country.flag.svg"></div>
+      </div>
     </div>
-
+    
   </div>
 </template>
 <script>
@@ -27,7 +31,7 @@ export default {
   data () {
     return {
       countryName: '',
-      countries: {},
+      countries: null,
       currentDate: new Date()
     }
   },
@@ -59,7 +63,11 @@ export default {
   max-width: 640px;
   margin: 0 auto 0 auto;
   min-height: 400px;
+}
 
+.b-country__flag svg {
+  width: 200px;
+  height: auto;
 }
 
 /* Element UI */
