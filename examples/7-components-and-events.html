@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Curso Profesional Vue.js</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .b-task {
+            cursor: pointer;
+        }
+
+        .b-task.is-completed {
+            color: gray;
+        }
+
+        .is-completed .glyphicon {
+            color: green;
+        }
+
+        .is-uncompleted .glyphicon {
+            color: orange;
+        }
+
+        .b-task__category {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: gray;
+            background: #fefefe;
+            border: 1px solid gray;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <h1>Componentes</h1>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6">
+                    <div class="b-tasks-container">
+                        <h2>Mis tareas</h2>
+                        <task-component :tasks-in-child-component="tasks"
+                                        @emit-create-method="parentHandler"></task-component>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script type="text/x-template" id="task-component-template">
+        <ul class="b-tasks">
+            <li class="b-task" v-for="task in tasksInChildComponent"
+                :class="{'is-completed' : task.completed, 'is-uncompleted': ! task.completed}"
+                @click="childHandler(task)">
+                <p>
+                    {{ task.title }} <span class="b-task__category" v-if="task.category">{{ task.category.name }}</span>
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-cloud" v-if="task.synchronize === 'Yes'"></span>
+                </p>
+            </li>
+        </ul>
+    </script>
+    <script>
+      (function() {
+
+        // Component globalmente registrado
+        Vue.component('task-component', {
+          props: ['tasksInChildComponent'],
+          template: '#task-component-template',
+          methods: {
+            childHandler: function(task) {
+              console.log('Event in child');
+              this.$emit('emit-create-method', task);
+            }
+          }
+
+        });
+
+        new Vue({
+          el: '#app',
+          data: function() {
+            return {
+              tasks: [
+                {
+                  title: 'Enviar email a proveedores',
+                  completed: false,
+                  synchronize: 'Yes',
+                  category: {
+                    name: 'Trabajo'
+                  }
+                },
+                {
+                  title: 'Hablar por teléfono con mamá',
+                  completed: true,
+                  synchronize: 'No'
+                },
+                {
+                  title: 'Reservar restaurante para la cena',
+                  completed: false,
+                  synchronize: 'No'
+                },
+                {
+                  title: 'Buscar libro sobre IA',
+                  completed: false,
+                  synchronize: 'No'
+                }
+              ]
+            };
+          },
+          methods: {
+            parentHandler: function(task) {
+              console.log('Parent received the event');
+              task.completed = true;
+            }
+          }
+        });
+
+      })();
+    </script>
+</body>
+</html>
