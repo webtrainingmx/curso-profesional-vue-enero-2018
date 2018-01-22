@@ -5,18 +5,15 @@
               v-for="(country) in countries" :key="country.cca2">
         <el-card>
           <div class="b-country">
-            <div class="b-contry__flag-container">
-
+            <div class="b-country__flag-container">
               <div class="b-country__flag">
-                <span class="flag" :class="country.cca2 | createFlagCSSClass"></span>
-
+                <span class="flag"
+                      :class="country.cca2 | createFlagCSSClass"></span>
               </div>
             </div>
-
-            <div style="padding: 0px;">
+            <div class="b-country__text-container">
               <span>{{ country.name.common }}</span>
               <div class="bottom clearfix">
-
                 <el-button type="text" class="button">See details</el-button>
               </div>
             </div>
@@ -42,4 +39,17 @@ export default {
 }
 </script>
 <style>
+.b-country__flag-container {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.b-country__flag {
+  margin-top: -10px;
+}
+
+.b-country__text-container {
+  margin-top: 10px;
+}
 </style>

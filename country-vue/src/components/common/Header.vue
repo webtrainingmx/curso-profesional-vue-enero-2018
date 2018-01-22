@@ -42,6 +42,13 @@ export default {
   border-radius: 0;
 }
 
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: white;
+}
+
 .b-brand-name {
 
 }

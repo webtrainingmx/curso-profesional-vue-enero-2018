@@ -1,6 +1,10 @@
 <template>
   <div class="b-countries-finder">
     <h1 class="b-title">Let's find an amazing country</h1>
+    <div class="b-countries-finder__map">
+      <img src="/static/img/wt-world.png" alt="World Map" width="593"
+           class="img-responsive">
+    </div>
     <form @submit.prevent="getCountries" class="well b-countries-finder__form">
       <div class="form-group">
         <label for="countryName">Country name</label>
@@ -55,6 +59,19 @@ export default {
   margin: 60px 0 50px 0;
 }
 
+.b-countries-finder {
+  min-height: 600px;
+  /*background: url("/static/img/wt-world.png") no-repeat scroll 0 0 transparent;*/
+}
+
+.b-countries-finder__map {
+  text-align: center;
+}
+
+.b-countries-finder__map img {
+  margin: 0 auto 20px auto;
+}
+
 .b-countries-finder__form {
   max-width: 640px;
   margin: 0 auto 80px auto;
@@ -77,6 +94,7 @@ export default {
 
 .el-card__body {
   padding: 10px 20px;
+  min-height: 110px;
 }
 
 .bottom {

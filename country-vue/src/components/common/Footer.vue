@@ -34,6 +34,7 @@ export default {
 <style>
 .b-footer {
   background: #18bc9c;
+  min-height: 200px;
 }
 
 .b-logo {
