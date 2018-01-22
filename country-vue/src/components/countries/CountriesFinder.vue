@@ -32,7 +32,8 @@ export default {
   },
   methods: {
     getCountries: function () {
-      let url = 'http://127.0.0.1:8000/countries/search'
+      let serverAPI = 'http://countries-finder-api.webtraining.fun'
+      let url = `${serverAPI}/countries/search`
       let serviceURL = `${url}/${this.countryName}`
 
       axios.get(serviceURL).then((response) => {

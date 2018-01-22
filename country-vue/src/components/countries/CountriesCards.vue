@@ -5,8 +5,14 @@
               v-for="(country) in countries" :key="country.cca2">
         <el-card>
           <div class="b-country">
-            <div class="b-country__flag" v-html="country.flag.sprite"></div>
-            <!--<div class="b-country__flag" v-html="country.flag.svg"></div>-->
+            <div class="b-contry__flag-container">
+
+              <div class="b-country__flag">
+                <span class="flag" :class="country.cca2 | createFlagCSSClass"></span>
+
+              </div>
+            </div>
+
             <div style="padding: 0px;">
               <span>{{ country.name.common }}</span>
               <div class="bottom clearfix">
@@ -26,6 +32,12 @@ export default {
   props: ['countries'],
   data () {
     return {}
+  },
+  filters: {
+    createFlagCSSClass (value) {
+      if (!value) return ''
+      return 'flag-' + value.toLowerCase()
+    }
   }
 }
 </script>

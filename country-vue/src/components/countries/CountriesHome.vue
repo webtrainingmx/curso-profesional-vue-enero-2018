@@ -13,8 +13,8 @@
       <div class="b-countries-wrapper" v-if="countries">
         <app-countries-cards :countries="filteredCountries"
                              v-if="filteredCountries"></app-countries-cards>
-        <app-countries-cards :countries="countries"
-                             v-else></app-countries-cards>
+        <!--<app-countries-cards :countries="countries"-->
+                             <!--v-else></app-countries-cards>-->
       </div>
     </div>
   </div>
@@ -37,7 +37,8 @@ export default {
   },
   methods: {
     getCountries: function () {
-      let url = 'http://127.0.0.1:8000/countries'
+      let serverAPI = 'http://countries-finder-api.webtraining.fun'
+      let url = `${serverAPI}/countries`
       let serviceURL = `${url}`
 
       axios.get(serviceURL).then((response) => {
@@ -58,7 +59,7 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     this.getCountries()
   }
 
@@ -68,6 +69,7 @@ export default {
 .b-loader {
   min-height: 150px;
 }
+
 .b-title {
   text-align: center;
   margin: 60px 0 50px 0;
