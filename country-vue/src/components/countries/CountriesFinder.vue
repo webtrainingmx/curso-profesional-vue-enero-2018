@@ -2,7 +2,7 @@
   <div class="b-countries-finder">
     <h1 class="b-title">Let's find an amazing country</h1>
     <div class="b-countries-finder__map">
-      <img src="/static/img/wt-world.png" alt="World Map" width="593"
+      <img src="/static/img/wt-world.png" alt="World Map" width="669"
            class="img-responsive">
     </div>
     <form @submit.prevent="getCountries" class="well b-countries-finder__form">

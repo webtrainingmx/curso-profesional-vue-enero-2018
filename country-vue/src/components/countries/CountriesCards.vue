@@ -14,7 +14,10 @@
             <div class="b-country__text-container">
               <span>{{ country.name.common }}</span>
               <div class="bottom clearfix">
-                <el-button type="text" class="button">See details</el-button>
+                <el-button type="text" class="button"
+                           @click="openDetails(country)">See
+                  details
+                </el-button>
               </div>
             </div>
           </div>
@@ -29,6 +32,15 @@ export default {
   props: ['countries'],
   data () {
     return {}
+  },
+  methods: {
+    openDetails (country) {
+      console.log('Router navigate', country.name.common)
+      this.$router.push({
+        name: 'CountryDetail',
+        params: {countryName: country.name.common}
+      })
+    }
   },
   filters: {
     createFlagCSSClass (value) {

@@ -3,10 +3,12 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import CountriesFinder from '@/components/countries/CountriesFinder'
 import CountriesHome from '@/components/countries/CountriesHome'
+import CountryDetail from '@/components/countries/CountryDetail'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -16,7 +18,12 @@ export default new Router({
     {
       path: '/countries',
       name: 'CountriesHome',
-      component: CountriesHome
+      component: CountriesHome,
+      children: []
+    }, {
+      path: '/countries/detail/:countryName',
+      name: 'CountryDetail',
+      component: CountryDetail
     }
   ]
 })
